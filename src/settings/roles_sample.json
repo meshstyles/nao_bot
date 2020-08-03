@@ -1,0 +1,12 @@
+{
+    "guild.id_1": [
+        "tester",
+        "player",
+        "admin"
+    ],
+    "guild.id_2": [
+        "game1",
+        "game2",
+        "game3"
+    ]
+}

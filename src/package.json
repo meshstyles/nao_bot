@@ -1,0 +1,27 @@
+{
+  "name": "nao_bot",
+  "version": "1.0.0",
+  "description": "A bot that combines all features of my bot into one bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meshstyles/nao_bot.git"
+  },
+  "keywords": [
+    "discord_bot",
+    "nodejs",
+    "discord.js.org"
+  ],
+  "author": "meshstyles",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meshstyles/nao_bot/issues"
+  },
+  "homepage": "https://github.com/meshstyles/nao_bot#readme",
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  }
+}

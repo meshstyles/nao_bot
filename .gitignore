@@ -102,3 +102,17 @@ dist
 
 # TernJS port file
 .tern-port
+
+#discord js files
+botconfig.json
+botconfig_demo.json
+roles.json
+priv_info.md
+tochange.html
+tochange.pdf
+*.mp3
+/node_modules
+/.vscode
+
+#designation for log files
+log_*
