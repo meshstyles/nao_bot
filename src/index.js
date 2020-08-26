@@ -187,10 +187,6 @@ function botinfoEmbed() {
     return botembed;
 }
 
-async function bbscheck(type,) {
-
-}
-
 /**
  * @param {Discord.Message} message:Message
  * @param {String} newChannelName:string
