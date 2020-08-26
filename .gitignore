@@ -107,9 +107,8 @@ dist
 botconfig.json
 botconfig_demo.json
 roles.json
+channels.json
 priv_info.md
-tochange.html
-tochange.pdf
 *.mp3
 /node_modules
 /.vscode

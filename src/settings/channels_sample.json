@@ -1,0 +1,18 @@
+{
+    "guild.id": {
+        "vcCategory": "name",
+        "stickyChannelsVC": [
+            "General",
+            "Admin-Talk"
+        ]
+    },
+    "123123123123123123123123": {
+        "vcCategory": "name",
+        "stickyChannelsVC": [
+            "chanel",
+            "Names",
+            "are",
+            "CaSeSeNsItIv "
+        ]
+    }
+}
