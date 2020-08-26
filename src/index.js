@@ -210,7 +210,7 @@ async function parentFinder(type, guildId) {
         case 'voice':
             return channels_settings[guildId].vcCategory;
         case 'text':
-            return channels_settings[guildId].bssCtegory;
+            return channels_settings[guildId].bssCategory;
         default:
             return;
     }

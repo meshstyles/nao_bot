@@ -5,7 +5,7 @@
             "General",
             "Admin-Talk"
         ],
-        "bssCtegory": "bbs"
+        "bssCategory": "bbs",
     },
     "123123123123123123123123": {
         "vcCategory": "name",
@@ -15,6 +15,6 @@
             "are",
             "CaSeSeNsItIv "
         ],
-        "bssCtegory": "aib"
+        "bssCategory": "aib"
     }
 }
