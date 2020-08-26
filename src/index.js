@@ -45,8 +45,7 @@ bot.on("message", async message => {
         case vc_create:
             return channelCreator(message, argssingle[1].toLocaleLowerCase(), 'voice');
         case vc_remove:
-            let removeChannelName = argssingle[1];
-            return voiceRemover(message, removeChannelName);
+            return voiceRemover(message, argssingle[1]);
         case tb_create:
             return channelCreator(message, argssingle[1].toLocaleLowerCase(), 'text');
         case status:
@@ -198,9 +197,14 @@ async function channelCreator(message, newChannelName, type) {
     if (existingChannels !== undefined) {
         return message.reply(`channel name \'${newChannelName}\' is already taken!`);
     }
-    let newChannel = await message.guild.channels.create(newChannelName, { type: type, reason: `${message.author.username}#${message.author.discriminator} created ${newChannelName}` });
     let parentName = await parentFinder(type, message.guild.id);
     let parent = message.guild.channels.cache.find(c => c.name === parentName && c.type === "category");
+    let newChannel = await message.guild.channels.create(
+        newChannelName,
+        {
+            type: type,
+            reason: `${message.author.username}#${message.author.discriminator} created ${newChannelName}`
+        });
     newChannel.setParent(parent.id);
     return;
 }
