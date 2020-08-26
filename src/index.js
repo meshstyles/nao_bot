@@ -2,11 +2,12 @@ const botconfig = require("./settings/botconfig.json");
 const roles = require("./settings/roles.json");
 const memes = require("./settings/memes.json");
 const emotes = require("./settings/emotes.json");
+const channels_settings = require("./settings/channels.json");
 
 const Discord = require("discord.js");
 const bot = new Discord.Client({ disableEveryone: true });
 
-const { token, vote, prefix, join, leave } = botconfig.config;
+const { token, vote, status, join, leave, vc_create, vc_remove } = botconfig.config;
 const { res_dm, pol_votes, pol_toManyArgs } = botconfig.responses;
 const { votesplit, votesplit2 } = botconfig.splitters;
 
@@ -41,7 +42,13 @@ bot.on("message", async message => {
             return leave_roles(message, argssingle);
         case vote:
             return voting(message);
-        case prefix:
+        case vc_create:
+            let newChannelName = argssingle[1].toLocaleLowerCase();
+            return voiceCreator(message, newChannelName);
+        case vc_remove:
+            let removeChannelName = argssingle[1];
+            return voiceRemover(message, removeChannelName);
+        case status:
             switch (argssingle[1].toLocaleLowerCase()) {
                 case `help`:
                     return message.author.send(res_dm);
@@ -177,4 +184,49 @@ function botinfoEmbed() {
         .addField("Bot Name", bot.user.username)
         .addField("Uptime in sec", botuptime);
     return botembed;
+}
+
+/**
+ * @param {Discord.Message} message:Message
+ * @param {String} newChannelName:string
+ *
+ * @returns {void}
+ */
+async function voiceCreator(message, newChannelName) {
+    let existingChannels = await message.guild.channels.cache.find(r => r.name === newChannelName);
+    let newChannel;
+    if (existingChannels === undefined) {
+        newChannel = await message.guild.channels.create(newChannelName, { type: 'voice', reason: `${message.author.username}#${message.author.discriminator} created ${newChannelName}` });
+    } else {
+        return message.reply(`channel name \'${newChannelName}\' is already taken!`);
+    }
+    let vcParentName = await channels_settings[message.guild.id].vcCategory;
+    let vcParent = message.guild.channels.cache.find(c => c.name === vcParentName && c.type === "category");
+    newChannel.setParent(vcParent.id);
+    return;
+}
+
+/**
+ * @param {Discord.Message} message:Message
+ * @param {String} removeChannelName:string
+ * 
+ * @returns {void}
+ */
+
+async function voiceRemover(message, removeChannelName) {
+    let stickyChannelsVC = await channels_settings[message.guild.id].stickyChannelsVC;
+    if ((stickyChannelsVC.includes(removeChannelName)))
+        return message.reply(' this channel can\'t be removed ');
+    let removeChannelVC = await message.guild.channels.cache.find(r => r.name === removeChannelName);
+    if (removeChannelVC !== undefined) {
+        if (removeChannelVC.type !== 'voice') {
+            return message.reply(' this might not be voice channel or should not be removed ');
+        }
+    } else {
+        return message.reply(' this name can\'t be found');
+    }
+
+    removeChannelVC.delete(`${message.author.username}#${message.author.discriminator} request`).catch(console.error);
+    return message.reply(` channel removed ${removeChannelName}`);
+
 }
