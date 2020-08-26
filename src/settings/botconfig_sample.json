@@ -4,7 +4,10 @@
         "vote": "!vote",
         "prefix": "!status",
         "join": "join",
-        "leave": "leave"
+        "leave": "leave",
+        "vc_create": "!create_vc",
+        "vc_remove": "!remove_vc",
+        "tb_create": "!board"
     },
     "responses": {
         "res_dm": "If you need help than check out my help pages in English/German over @ Check the Help pages on https://meshstyles.github.io/unilandiscordbot/ ",

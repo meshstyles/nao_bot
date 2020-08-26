@@ -4,7 +4,8 @@
         "stickyChannelsVC": [
             "General",
             "Admin-Talk"
-        ]
+        ],
+        "bssCtegory": "bbs"
     },
     "123123123123123123123123": {
         "vcCategory": "name",
@@ -13,6 +14,7 @@
             "Names",
             "are",
             "CaSeSeNsItIv "
-        ]
+        ],
+        "bssCtegory": "aib"
     }
 }

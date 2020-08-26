@@ -7,7 +7,7 @@ const channels_settings = require("./settings/channels.json");
 const Discord = require("discord.js");
 const bot = new Discord.Client({ disableEveryone: true });
 
-const { token, vote, status, join, leave, vc_create, vc_remove } = botconfig.config;
+const { token, vote, status, join, leave, vc_create, vc_remove, tb_create } = botconfig.config;
 const { res_dm, pol_votes, pol_toManyArgs } = botconfig.responses;
 const { votesplit, votesplit2 } = botconfig.splitters;
 
@@ -43,11 +43,12 @@ bot.on("message", async message => {
         case vote:
             return voting(message);
         case vc_create:
-            let newChannelName = argssingle[1].toLocaleLowerCase();
-            return voiceCreator(message, newChannelName);
+            return channelCreator(message, argssingle[1].toLocaleLowerCase(), 'voice');
         case vc_remove:
             let removeChannelName = argssingle[1];
             return voiceRemover(message, removeChannelName);
+        case tb_create:
+            return channelCreator(message, argssingle[1].toLocaleLowerCase(), 'text');
         case status:
             switch (argssingle[1].toLocaleLowerCase()) {
                 case `help`:
@@ -186,24 +187,38 @@ function botinfoEmbed() {
     return botembed;
 }
 
+async function bbscheck(type,) {
+
+}
+
 /**
  * @param {Discord.Message} message:Message
  * @param {String} newChannelName:string
  *
  * @returns {void}
  */
-async function voiceCreator(message, newChannelName) {
+async function channelCreator(message, newChannelName, type) {
     let existingChannels = await message.guild.channels.cache.find(r => r.name === newChannelName);
-    let newChannel;
-    if (existingChannels === undefined) {
-        newChannel = await message.guild.channels.create(newChannelName, { type: 'voice', reason: `${message.author.username}#${message.author.discriminator} created ${newChannelName}` });
-    } else {
+    if (existingChannels !== undefined) {
         return message.reply(`channel name \'${newChannelName}\' is already taken!`);
     }
-    let vcParentName = await channels_settings[message.guild.id].vcCategory;
-    let vcParent = message.guild.channels.cache.find(c => c.name === vcParentName && c.type === "category");
-    newChannel.setParent(vcParent.id);
+    let newChannel = await message.guild.channels.create(newChannelName, { type: type, reason: `${message.author.username}#${message.author.discriminator} created ${newChannelName}` });
+    let parentName = await parentFinder(type, message.guild.id);
+    let parent = message.guild.channels.cache.find(c => c.name === parentName && c.type === "category");
+    newChannel.setParent(parent.id);
     return;
+}
+
+async function parentFinder(type, guildId) {
+    switch (type) {
+        case 'voice':
+            return channels_settings[guildId].vcCategory;
+        case 'text':
+            return channels_settings[guildId].bssCtegory;
+        default:
+            return;
+    }
+
 }
 
 /**
