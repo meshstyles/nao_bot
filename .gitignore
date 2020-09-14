@@ -105,6 +105,7 @@ dist
 
 #discord js files
 botconfig.json
+botconfig copy.json
 botconfig_demo.json
 roles.json
 channels.json

@@ -2,7 +2,7 @@
     "config": {
         "token": "YOUR TOKEN HERE",
         "vote": "!vote",
-        "prefix": "!status",
+        "status": "!status",
         "join": "join",
         "leave": "leave",
         "vc_create": "!create_vc",
@@ -10,8 +10,8 @@
         "tb_create": "!board"
     },
     "responses": {
-        "res_dm": "If you need help than check out my help pages in English/German over @ Check the Help pages on https://meshstyles.github.io/unilandiscordbot/ ",
-        "pol_failed": "this is not a valid vote message. Check out the help @ https://meshstyles.github.io/unilandiscordbot/votes.md",
+        "res_dm": "If you need help than check out my help pages in English/German over @ Check the Help pages on https://meshstyles.github.io/nao_bot/docs/index.md ",
+        "pol_failed": "this is not a valid vote message. Check out the help @ https://meshstyles.github.io/nao_bot/docs/votes.md",
         "pol_toManyArgs": "Sorry but we only allow 9 answers tops"
     },
     "splitters": {
